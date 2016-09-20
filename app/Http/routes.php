@@ -15,8 +15,15 @@ use Illuminate\Support\Facades\Auth;
 Route::auth();
 
 
-Route::group(['namespace' => 'business', 'prefix' => 'portal', 'middleware' => ['auth', 'acl'], 'is' => 'business'], function () {
+Route::group(['prefix' => 'portal', 'middleware' => ['auth', 'acl'], 'is' => 'business'], function () {
+    Route::get('dashboard', ['uses' => 'DashboardController@index', 'as' => 'portal.dashboard']);
+    Route::get('new_listing', ['uses' => 'DashboardController@new_listing', 'as' => 'portal.new_listing']);
+    Route::post('new_listing_handler', ['uses' => 'DashboardController@new_listing_handler', 'as' => 'portal.new_listing_handler']);
+    Route::get('edit_listing/{id}', ['uses' => 'DashboardController@edit_listing', 'as' => 'portal.edit_listing']);
+    Route::post('edit_listing_handler', ['uses' => 'DashboardController@edit_listing_handler', 'as' => 'portal.edit_listing_handler']);
 
+    Route::get('edit_profile', ['uses' => 'UserController@edit_profile', 'as' => 'portal.edit_profile']);
+    Route::post('edit_profile_handler', ['uses' => 'UserController@edit_profile_handler', 'as' => 'portal.edit_profile_handler']);
 });
 
 Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'middleware' => ['auth', 'acl'], 'is' => 'admin'], function () {
@@ -25,7 +32,8 @@ Route::group(['namespace' => 'admin', 'prefix' => 'admin', 'middleware' => ['aut
 
 
 Route::get('/', ['uses' => 'PagesController@frontpage', 'as' => 'frontpage']);
-Route::resource('business','BusinessController');
+Route::get('c/{category}',['uses' => 'ListingCategoriesController@show', 'as' => 'listing_categories']);
+Route::get('c/{category}/{slug}',['uses' => 'ListingsController@show', 'as' => 'view_listing']);
 Route::get('contact', ['uses' => 'PagesController@contact', 'as' => 'contact_page']);
 Route::get('{page}', ['uses' => 'PagesController@show', 'as' => 'show_page']);
 Route::get('post/{post}', ['uses' => 'PostsController@show', 'as' => 'show_post']);

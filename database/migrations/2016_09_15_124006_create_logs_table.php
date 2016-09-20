@@ -14,9 +14,9 @@ class CreateLogsTable extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('listing_id');
+            $table->integer('listing_id')->unsigned()->foreign('listing_id')->references('id')->on('listings');
             $table->text('log');
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned()->foreign('user_id')->references('id')->on('users');;
             $table->timestamps();
             $table->softDeletes();
         });

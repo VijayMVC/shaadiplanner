@@ -16,8 +16,9 @@ class CreateListingCategoriesTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('slug');
-            $table->integer('parent_id');
+            $table->integer('parent_id')->nullable()->unsigned()->foreign('parent_id')->references('id')->on('listing_categories');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

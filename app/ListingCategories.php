@@ -18,11 +18,11 @@ class ListingCategories extends Model
 
     public function parent()
     {
-        return $this->belongsTo('ListingCategories', 'parent_id');
+        return $this->belongsTo('App\ListingCategories', 'parent_id');
     }
 
     public function children()
     {
-        return $this->hasMany('ListingCategories', 'parent_id');
+        return $this->hasMany('App\ListingCategories', 'parent_id');
     }
 }

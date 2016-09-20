@@ -5,14 +5,42 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kodeine\Metable\Metable;
+use Elasticquent\ElasticquentTrait;
 
 class Listing extends Model
 {
     use SoftDeletes;
+    use ElasticquentTrait;
     protected $dates = ['deleted_at'];
     protected $table = 'listings';
 
     public function category() {
-        return $this->belongsTo('App\ListingCategories');
+        return $this->belongsTo('App\ListingCategories','cat_id','id');
+    }
+
+    public function galleries() {
+        return $this->hasMany('App\Gallery');
+    }
+
+    public function getStatusClassAttribute() {
+        if ($this->attributes['status']==0) {
+            $class="danger";
+        }elseif ($this->attributes['status']==1) {
+            $class="success";
+        }
+        return '<span class="label label-'.$class.'">'.$this->getStatusAttribute().'</span>';
+    }
+
+    public function getStatusAttribute() {
+        if ($this->attributes['status']==0) {
+            return $class="inactive";
+        }elseif ($this->attributes['status']==1) {
+            return $class="active";
+        }
+    }
+
+    public function getCreatedAtAttribute($date)
+    {
+        return Carbon::parse($date)->format('d/m/Y');
     }
 }

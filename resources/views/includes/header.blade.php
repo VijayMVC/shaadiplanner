@@ -13,10 +13,10 @@
 				<ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     <li><a href="{{ URL::route('show_page',['page'=>'about']) }}">About</a></li>
-					<li><a href="{{ URL::route('contact_page') }}/">Contact</a></li>
+					<li><a href="{{ URL::route('contact_page') }}">Contact</a></li>
                     @if (Auth::guest())
-                        <li><a href="{{ URL::to('/login') }}">Login</a></li>
-                        <li><a href="{{ URL::to('/register') }}">Register</a></li>
+                        <li><a href="{{ URL::to('login') }}">Login</a></li>
+                        <li><a href="{{ URL::to('register') }}">Register</a></li>
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -35,7 +35,7 @@
 	</div><!-- mainmenu -->
 
 	<div class="container logo-container">
-	    <a href="/"><img src="{{URL::asset('images/logo.png') }}"></a>
+	    <a href="{{ URL::route('frontpage') }}"><img src="{{URL::asset('images/logo.png') }}"></a>
 	</div>
 
 	<nav id="w1" class="navbar navbar-secondary" role="navigation">

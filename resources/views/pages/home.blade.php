@@ -27,4 +27,16 @@
             <div class="clear"></div>
         </form>
     </div>
+
+    <div class="row">
+    <div class="col-xs-12">
+    <h2>Latest listings</h2>
+    @forelse ($listings as $listing)
+        @include('partials.listing-loop', array('listing' => $listing))
+    @empty
+    No listings
+    @endforelse
+    </div>
+    </div>
+    </div>
 @stop

@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
-use App\Role;
 use DB;
 use Hash;
+use Auth;
 
 class UserController extends Controller
 {
@@ -80,13 +80,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit_profile()
     {
-        $user = User::find($id);
-        $roles = Role::lists('display_name','id');
-        $userRole = $user->roles->lists('id','id')->toArray();
-
-        return view('users.edit',compact('user','roles','userRole'));
+        $user = Auth::user();
+        return view('portal.edit_profile')->with('user',$user);
     }
 
     /**
@@ -106,17 +103,17 @@ class UserController extends Controller
         ]);
 
         $input = $request->all();
-        if(!empty($input['password'])){ 
+        if(!empty($input['password'])){
             $input['password'] = Hash::make($input['password']);
         }else{
-            $input = array_except($input,array('password'));    
+            $input = array_except($input,array('password'));
         }
 
         $user = User::find($id);
         $user->update($input);
         DB::table('role_user')->where('user_id',$id)->delete();
 
-        
+
         foreach ($request->input('roles') as $key => $value) {
             $user->attachRole($value);
         }
