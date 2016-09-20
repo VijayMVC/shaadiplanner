@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->delete();
         $admin=User::create(array(
-            'name'     => 'Luke Deaken',
+            'name'     => 'Luke Deakin',
             'email'    => 'test@instantwebsitesolutions.co.uk',
             'password' => Hash::make('instant'),
         ));
