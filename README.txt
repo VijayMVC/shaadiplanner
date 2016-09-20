@@ -6,5 +6,11 @@ Work been done
 
 3) Made all databases with Migrations & Seeders, its Laravel! No custom tables via phpmyadmin, its not a good practise.
 
-4) 
+4) Made all models in Laravel needed
+
+5) Made basic listing with Gallery working
+
+6) Started making user portal for managing his listings
+
+7) Fixed all routes to the correct format
 
