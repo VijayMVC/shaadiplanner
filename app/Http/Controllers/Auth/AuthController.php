@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Validator;
+use Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -29,7 +30,7 @@ class AuthController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/portal/dashboard';
+    protected $redirectTo = '/';
 
     /**
      * Create a new authentication controller instance.
@@ -71,8 +72,14 @@ class AuthController extends Controller
         ]);
     }
 
-    /*protected function authenticated(Request $request, User $user)
+    protected function authenticated($user)
     {
-        return redirect()->intended();
-    }*/
+        if (Auth::user()->is('administrator')) {
+            return redirect('/admin/');
+        }elseif (Auth::user()->is('business')){
+            return redirect('/portal/');
+        }else{
+            return redirect('/');
+        }
+    }
 }

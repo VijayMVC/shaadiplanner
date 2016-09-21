@@ -103,6 +103,13 @@ class UsersTableSeeder extends Seeder
         $galleries->filename="teamwork.jpg";
         $galleries->save();
 
+        $business=User::create(array(
+            'name'     => 'Member User',
+            'email'    => 'member@instantwebsitesolutions.co.uk',
+            'password' => Hash::make('instant'),
+        ));
+        $business->assignRole('member');
+
         $page=new Page();
         $page->title="About";
         $page->slug="about";

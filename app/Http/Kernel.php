@@ -55,5 +55,6 @@ class Kernel extends HttpKernel
         'permission' => \Zizaco\Entrust\Middleware\EntrustPermission::class,
         'ability' => \Zizaco\Entrust\Middleware\EntrustAbility::class,
         'acl' => \Kodeine\Acl\Middleware\HasPermission::class,
+        'XSS' => \App\Http\Middleware\XSS::class,
     ];
 }

@@ -838,22 +838,30 @@
         },
         {
             "name": "psr/log",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b"
+                "reference": "5277094ed527a1c4477177d102fe4c53551953e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/fe0936ee26643249e916849d48e3a51d5f5e278b",
-                "reference": "fe0936ee26643249e916849d48e3a51d5f5e278b",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/5277094ed527a1c4477177d102fe4c53551953e0",
+                "reference": "5277094ed527a1c4477177d102fe4c53551953e0",
                 "shasum": ""
             },
+            "require": {
+                "php": ">=5.3.0"
+            },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
             "autoload": {
-                "psr-0": {
-                    "Psr\\Log\\": ""
+                "psr-4": {
+                    "Psr\\Log\\": "Psr/Log/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -867,12 +875,13 @@
                 }
             ],
             "description": "Common interface for logging libraries",
+            "homepage": "https://github.com/php-fig/log",
             "keywords": [
                 "log",
                 "psr",
                 "psr-3"
             ],
-            "time": "2012-12-21 11:40:51"
+            "time": "2016-09-19 16:02:08"
         },
         {
             "name": "psy/psysh",
@@ -2767,12 +2776,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kodeine/laravel-acl.git",
-                "reference": "f1dcebe1970d6e268846b3812a12bba424f05f5a"
+                "reference": "b0851b4d2ab113e210ee81432e659b8996f4fa86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kodeine/laravel-acl/zipball/f1dcebe1970d6e268846b3812a12bba424f05f5a",
-                "reference": "f1dcebe1970d6e268846b3812a12bba424f05f5a",
+                "url": "https://api.github.com/repos/kodeine/laravel-acl/zipball/b0851b4d2ab113e210ee81432e659b8996f4fa86",
+                "reference": "b0851b4d2ab113e210ee81432e659b8996f4fa86",
                 "shasum": ""
             },
             "require": {
@@ -2806,7 +2815,7 @@
                 "roles",
                 "security"
             ],
-            "time": "2016-06-21 16:02:11"
+            "time": "2016-09-20 15:17:28"
         },
         {
             "name": "kodeine/laravel-meta",

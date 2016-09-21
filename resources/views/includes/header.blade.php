@@ -24,8 +24,16 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                            	<li><a href="{{ URL::to('/portal/dashboard') }}"><span class="glyphicon glyphicon-th"></span>Dashboard</a></li>
-                            	<li><a href="{{ URL::to('/logout') }}"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+                                @role('administrator')
+                                	<li><a href="{{ URL::route('admin.dashboard') }}"><span class="glyphicon glyphicon-th"></span>Dashboard</a></li>
+                                @endrole
+                                @role('business')
+                                	<li><a href="{{ URL::route('admin.dashboard') }}"><span class="glyphicon glyphicon-th"></span>Dashboard</a></li>
+                                @endrole
+                                @role('member')
+                                	<li><a href="{{ URL::route('admin.dashboard') }}"><span class="glyphicon glyphicon-th"></span>Favourites</a></li>
+                                @endrole
+                           	    <li><a href="{{ URL::to('/logout') }}"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
                             </ul>
                         </li>
                     @endif

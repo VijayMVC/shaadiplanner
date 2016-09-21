@@ -10,6 +10,8 @@ class ListingCategories extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $table = 'listing_categories';
+    protected $fillable = ['name,parent_id'];
+
 
     public function listings()
     {

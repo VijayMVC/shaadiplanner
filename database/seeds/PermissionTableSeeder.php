@@ -25,7 +25,14 @@ class PermissionTableSeeder extends Seeder
         $roleEmployee = $role->create([
             'name' => 'Business',
             'slug' => 'business',
-            'description' => 'manage employee privileges'
+            'description' => 'manage business privileges'
+        ]);
+
+        $role = new Role();
+        $roleEmployee = $role->create([
+            'name' => 'Member',
+            'slug' => 'member',
+            'description' => 'manage member privileges'
         ]);
     }
 }

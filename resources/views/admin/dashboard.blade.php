@@ -1,13 +1,13 @@
-@extends('layouts.default')
+@extends('layouts.portal')
 
 @section('sidebar')
     <ul>
-    <li>Listings</li>
+    <li>My listings</li>
     </ul>
 @stop
 
 @section('content')
-    <h1>Listings</h1>
+    <h1>My listings</h1>
     <p class="text-right"><a class="btn btn-primary" href="{{URL::route('portal.add_listing') }}">New listing</a></p>
     <table class="table">
     <tr><th>Business Name</th><th>Status</th><th>Visits</th><th>Actions</th></tr>

@@ -9,7 +9,11 @@ use Auth;
 class DashboardController extends Controller
 {
     public function index() {
-        $mylistings=Listing::where('user_id',Auth::user()->id)->get();
+        if (Auth::user()->is('administrator')) {
+            $mylistings=Listing::all();
+        }else {
+            $mylistings=Listing::where('user_id',Auth::user()->id)->get();
+        }
         return view('portal.dashboard')->with('mylistings',$mylistings);
     }
 }

@@ -13,6 +13,7 @@ class Listing extends Model
     use ElasticquentTrait;
     protected $dates = ['deleted_at'];
     protected $table = 'listings';
+    protected $fillable = ['business_name','contact','display_contact','address_1','address_2','town','county','postcode','country','latitude','longitude','display_address','phone','display_phone','phone_2','display_phone_2','email','website','description','cat_id','cat2_id','listing_type','user_id','status'];
 
     public function category() {
         return $this->belongsTo('App\ListingCategories','cat_id','id');
@@ -28,10 +29,10 @@ class Listing extends Model
         }elseif ($this->attributes['status']==1) {
             $class="success";
         }
-        return '<span class="label label-'.$class.'">'.$this->getStatusAttribute().'</span>';
+        return '<span class="label label-'.$class.'">'.$this->getStatusText().'</span>';
     }
 
-    public function getStatusAttribute() {
+    public function getStatusText() {
         if ($this->attributes['status']==0) {
             return $class="inactive";
         }elseif ($this->attributes['status']==1) {
