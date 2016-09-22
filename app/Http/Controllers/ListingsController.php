@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\StoreListing;
 use App\Listing;
+use App\Favourites;
 use App\ListingCategories;
+use Auth;
 
 class ListingsController extends Controller
 {
@@ -43,5 +45,19 @@ class ListingsController extends Controller
         $listing->save();
         $cats=ListingCategories::all();
         return view('portal.edit_listing')->with('listing',$listing)->with('cats',$cats);
+    }
+
+    public function addFavourite(Request $request) {
+        $fav=Favourites::where('listing_id',$request->listing_id)->where('user_id',Auth::user()->id)->first();
+        if ($fav === null) {
+            $fav=new Favourites();
+            $fav->listing_id=$request->listing_id;
+            $fav->user_id=Auth::user()->id;
+            $fav->save();
+            return response()->json('added');
+        }else {
+            $fav->delete();
+            return response()->json('deleted');
+        }
     }
 }

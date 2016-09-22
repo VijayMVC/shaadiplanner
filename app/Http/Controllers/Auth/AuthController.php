@@ -75,9 +75,9 @@ class AuthController extends Controller
     protected function authenticated($user)
     {
         if (Auth::user()->is('administrator')) {
-            return redirect('/admin/');
+            return redirect('/admin/dashboard');
         }elseif (Auth::user()->is('business')){
-            return redirect('/portal/');
+            return redirect('/portal/dashboard');
         }else{
             return redirect('/');
         }

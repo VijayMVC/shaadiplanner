@@ -1,5 +1,9 @@
-@extends('layouts.portal')
- 
+@extends('layouts.default')
+
+@section('sidebar')
+    @include('admin.sidebar')
+@endsection
+
 @section('content')
 	<div class="row">
 	    <div class="col-lg-12 margin-tb">
@@ -7,7 +11,7 @@
 	            <h2> Show User</h2>
 	        </div>
 	        <div class="pull-right">
-	            <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
+	            <a class="btn btn-primary" href="{{ route('admin.users.index') }}"> Back</a>
 	        </div>
 	    </div>
 	</div>
@@ -28,8 +32,8 @@
             <div class="form-group">
                 <strong>Roles:</strong>
                 @if(!empty($user->roles))
-					@foreach($user->roles as $v)
-						<label class="label label-success">{{ $v->display_name }}</label>
+					@foreach($user->roles as $v)dsadsa
+						<label class="label label-success">{{ $v->name }}</label>
 					@endforeach
 				@endif
             </div>

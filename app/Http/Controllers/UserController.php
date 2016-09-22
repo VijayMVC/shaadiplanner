@@ -8,6 +8,7 @@ use App\User;
 use DB;
 use Hash;
 use Auth;
+use Kodeine\Acl\Models\Eloquent\Role;
 
 class UserController extends Controller
 {
@@ -24,23 +25,15 @@ class UserController extends Controller
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        $roles = Role::lists('display_name','id');
-        return view('users.create',compact('roles'));
+
+        $roles=Role::all()->lists('name','id');
+        return view('users.create')->with('roles',$roles);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -55,44 +48,34 @@ class UserController extends Controller
 
         $user = User::create($input);
         foreach ($request->input('roles') as $key => $value) {
-            $user->attachRole($value);
+            $user->assignRole($value);
         }
 
-        return redirect()->route('users.index')
-                        ->with('success','User created successfully');
+        return redirect()->route('admin.users.index')->with('success','User created successfully');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         $user = User::find($id);
         return view('users.show',compact('user'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit_profile()
     {
         $user = Auth::user();
         return view('portal.edit_profile')->with('user',$user);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function edit($id)
+    {
+        $user = User::find($id);
+        $roles=Role::all()->lists('name','id');
+        return view('users.edit')->with('user',$user)->with('roles',$roles);
+    }
+
+
     public function update(Request $request, $id)
     {
         $this->validate($request, [
@@ -103,35 +86,23 @@ class UserController extends Controller
         ]);
 
         $input = $request->all();
-        if(!empty($input['password'])){
-            $input['password'] = Hash::make($input['password']);
-        }else{
-            $input = array_except($input,array('password'));
-        }
 
         $user = User::find($id);
         $user->update($input);
-        DB::table('role_user')->where('user_id',$id)->delete();
-
 
         foreach ($request->input('roles') as $key => $value) {
-            $user->attachRole($value);
+            $user->syncRoles($value);
         }
 
-        return redirect()->route('users.index')
+        return redirect()->route('admin.users.index')
                         ->with('success','User updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         User::find($id)->delete();
-        return redirect()->route('users.index')
+        return redirect()->route('admin.users.index')
                         ->with('success','User deleted successfully');
     }
 }

@@ -166,13 +166,16 @@ footer { height: 60px; background-color: #f5f5f5; border-top: 1px solid #ddd; pa
   background: #4fb845;
 }
 
+.heart{padding:3px;display:inline-block}
+.active-heart{background:red;color:#fff}
+
 
 @media (max-width: 767px) {
-  
+
 }
 
 @media (max-width: 530px) {
-  
+
 }
 
 @media (max-width: 450px) {

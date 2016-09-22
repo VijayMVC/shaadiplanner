@@ -11,9 +11,20 @@ class DashboardController extends Controller
     public function index() {
         if (Auth::user()->is('administrator')) {
             $mylistings=Listing::all();
+            return view('admin.dashboard')->with('mylistings',$mylistings);
         }else {
             $mylistings=Listing::where('user_id',Auth::user()->id)->get();
+            return view('portal.dashboard')->with('mylistings',$mylistings);
         }
-        return view('portal.dashboard')->with('mylistings',$mylistings);
+    }
+
+    public function listings() {
+        if (Auth::user()->is('administrator')) {
+            $mylistings=Listing::all();
+            return view('admin.listings')->with('mylistings',$mylistings);
+        }else {
+            $mylistings=Listing::where('user_id',Auth::user()->id)->get();
+            return view('portal.listings')->with('mylistings',$mylistings);
+        }
     }
 }

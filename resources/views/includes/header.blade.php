@@ -28,10 +28,10 @@
                                 	<li><a href="{{ URL::route('admin.dashboard') }}"><span class="glyphicon glyphicon-th"></span>Dashboard</a></li>
                                 @endrole
                                 @role('business')
-                                	<li><a href="{{ URL::route('admin.dashboard') }}"><span class="glyphicon glyphicon-th"></span>Dashboard</a></li>
+                                	<li><a href="{{ URL::route('portal.dashboard') }}"><span class="glyphicon glyphicon-th"></span>Dashboard</a></li>
                                 @endrole
                                 @role('member')
-                                	<li><a href="{{ URL::route('admin.dashboard') }}"><span class="glyphicon glyphicon-th"></span>Favourites</a></li>
+                                	<li><a href="{{ URL::route('favourites') }}"><span class="glyphicon glyphicon-th"></span>Favourites</a></li>
                                 @endrole
                            	    <li><a href="{{ URL::to('/logout') }}"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
                             </ul>

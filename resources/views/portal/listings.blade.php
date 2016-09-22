@@ -1,11 +1,13 @@
 @extends('layouts.default')
 
 @section('sidebar')
-    @include('admin.sidebar')
-@endsection
+    <ul>
+    <li>Listings</li>
+    </ul>
+@stop
 
 @section('content')
-    <h1>My listings</h1>
+    <h1>Listings</h1>
     <p class="text-right"><a class="btn btn-primary" href="{{URL::route('portal.add_listing') }}">New listing</a></p>
     <table class="table">
     <tr><th>Business Name</th><th>Status</th><th>Visits</th><th>Actions</th></tr>
@@ -21,4 +23,5 @@
     <tr><td>You haven't submited anything</td></tr>
     @endforelse
     </table>
-@endsection
+    Dashboard !!! a
+@stop

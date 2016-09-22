@@ -9,9 +9,44 @@
 </p>
 <p>{{ ( $listing->contact ? $listing->contact : '') }}</p>
 
+<p><button class="btn heart
+
+{{ ($user_favourites->contains(1) ? 'active-heart' : '') }}
+
+" data-listing="{{$listing->id}}"><i class="fa fa-heart"></i></button></p>
+
 @foreach ($listing->galleries as $image)
     <img width="50" height="50" src="{{ URL::asset('/galleries/'.$image->filename) }}">
 @endforeach
+
+<script>
+$(document).ready(function(){
+
+    $('.heart').on('click',function(){
+        var $this=$(this);
+        $.ajax({
+            type: "POST",
+            url: "{{ URL::route('favourite') }}",
+            data: {listing_id:{{$listing->id}}},
+            dataType: "json",
+            success: function (response) {
+                if (response=='added') {
+                    $this.addClass('active-heart');
+                }else if (response=='deleted') {
+                    $this.removeClass('active-heart');
+                }
+            },
+            error: function (xhr, status, errorThrown) {
+                console.log(xhr.status);
+                console.log(xhr.responseText);
+            }
+        });
+
+    })
+});
+</script>
+
+
 
 @endsection
 
