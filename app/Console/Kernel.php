@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use App\Listing;
 
 class Kernel extends ConsoleKernel
 {
@@ -26,5 +27,10 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->call(function () {
+            Listing::reindex();
+            Listing::deleteMapping();
+            Listing::rebuildMapping();
+        })->daily();
     }
 }

@@ -115,5 +115,11 @@ class UsersTableSeeder extends Seeder
         $page->slug="about";
         $page->content="About page";
         $page->save();
+
+        Listing::createIndex();
+        Listing::putMapping($ignoreConflicts = true);
+        Listing::addAllToIndex();
     }
+
+
 }

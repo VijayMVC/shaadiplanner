@@ -41,9 +41,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'acl'], 'is' => 'adm
 });
 
 Route::group(['middleware' => ['auth', 'acl'], 'is' => 'member'], function () {
-
+    Route::get('dashboard', ['uses' => 'DashboardController@index', 'as' => 'member.dashboard']);
 });
 
+Route::get('search/{query}',['uses' => 'ListingsController@search', 'as' => 'favourite']);
 Route::post('favourite',['uses' => 'ListingsController@addFavourite', 'as' => 'favourite']);
 
 Route::get('/', ['uses' => 'PagesController@frontpage', 'as' => 'frontpage']);
@@ -55,4 +56,4 @@ Route::get('post/{post}', ['uses' => 'PostsController@show', 'as' => 'show_post'
 Route::get('categories/{category}', ['uses' => 'PostCategoriesController@show', 'as' => 'show_postcategory']);
 
 Route::get('results', 'ResultsController@getResults');
-Route::post('search/suggest', 'AjaxController@suggest');
+Route::post('search/suggest', ['uses' => 'AjaxController@suggest', 'as' => 'search_suggest']);

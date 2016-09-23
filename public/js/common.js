@@ -77,8 +77,8 @@ $(document).ready(function(){
   // -----------------------------
 
   $('.btn-toggle').click(function() {
-      $(this).find('.btn').toggleClass('active');  
-      
+      $(this).find('.btn').toggleClass('active');
+
       if ($(this).find('.btn-primary').size()>0) {
         $(this).find('.btn').toggleClass('btn-primary');
       }
@@ -91,7 +91,7 @@ $(document).ready(function(){
       if ($(this).find('.btn-info').size()>0) {
         $(this).find('.btn').toggleClass('btn-info');
       }
-      
+
       $(this).find('.btn').toggleClass('btn-default');
 
       $(this).find('.active input').prop("checked", true);
@@ -101,34 +101,34 @@ $(document).ready(function(){
     validateSearchForm();
   });
 
-  $("#q").focus(); //Focus on search field
+  $("#q").focus();
   $("#search_form #q").autocomplete({
       minLength: 0,
       delay: 5,
       source: function(request, response) {
         var field_value = $("#search_form #q").val();
-        // var field_type = $(this).parent(".search-group").children(".search-field-btn").children(".btn-filter-option").attr('value');
-        // var feed = specific_feed;
-
             if(xhr && xhr.readystate != 4){
               xhr.abort();
             }
             xhr = $.ajax({
                 type: "POST",
-                url: "/search/suggest",
+                url: "search/suggest",
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                 data: { 'type': 'search', 'term': field_value },
                 success: function(data) {
-                  response($.map(JSON.parse(data), function(obj) {
-                    return {
-                      label: obj.combined,
-                      value: obj.subcategory,
-                      id: obj.id // don't really need this unless you're using it elsewhere.
-                    };
-                  }));
+                console.log(data);
+                response( $.map( data, function( item ) {
+                return {
+                    label: item.title,
+                    value: item.title
+                }}));
+                },
+                error: function (xhr, status, errorThrown) {
+                    console.log(xhr.status);
+                    console.log(xhr.responseText);
                 }
             });
-      },
+     },
     open: function(e,ui) {
       // Highlights/Bolds text typed in result suggestions
       var acData = $(this).data('ui-autocomplete');
@@ -139,7 +139,7 @@ $(document).ready(function(){
           .find('li')
           .each(function() {
             var me = $(this);
-            
+
             me_txt = me.text();
             search_terms = acData.term.split(" ");
             $.each(search_terms, function(k1, v1){
@@ -176,7 +176,7 @@ $(document).ready(function(){
   }).keyup(function (e) {
       if(e.which === 13) {
           $(".ui-autocomplete").hide();
-      }            
+      }
   });
 
 
@@ -187,14 +187,14 @@ $(document).ready(function(){
       $(this).val($(this).val().substr(0, max_chars));
     }
     var remaining = $(this).val().length;
-    
+
 
     $(".max-chars."+$(this).attr("max-chars")).text(remaining);
     if(remaining <= 10 && !$(".max-chars."+$(this).attr("max-chars")).hasClass("red")){
       $(".max-chars."+$(this).attr("max-chars")).addClass("red");
     }
     else if(remaining > 10){
-      $(".max-chars."+$(this).attr("max-chars")).removeClass("red");  
+      $(".max-chars."+$(this).attr("max-chars")).removeClass("red");
     }
   });
 
@@ -277,7 +277,7 @@ function validateSearchForm() {
 }
 
 function ucwords(str, force){
-  str=force ? str.toLowerCase() : str;  
+  str=force ? str.toLowerCase() : str;
     return str.replace(/(\b)([a-zA-Z])/g, function(firstLetter){
     return firstLetter.toUpperCase();
   });

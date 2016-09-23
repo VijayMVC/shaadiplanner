@@ -9,10 +9,11 @@ class ClientComposer {
 
     public function compose(View $view)
     {
+        $fav = new \Illuminate\Database\Eloquent\Collection;
         if (Auth::check()) {
-            $user_favourites=Auth::user()->favourites->lists('listing_id');
-            $view->with('user_favourites',$user_favourites);
+            $fav=Auth::user()->favourites->lists('listing_id');
          }
+         $view->with('user_favourites',$fav);
 
     }
 

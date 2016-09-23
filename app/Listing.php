@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Kodeine\Metable\Metable;
 use Elasticquent\ElasticquentTrait;
+use Carbon\Carbon;
 
 class Listing extends Model
 {

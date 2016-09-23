@@ -15,11 +15,11 @@ class PagesController extends Controller
     }
     public function frontpage() {
         $listings=Listing::where('status',1)->orderBy('created_at','DESC')->get();
-        return view('pages.home')->with('listings',$listings);
+        return view('index')->with('listings',$listings);
     }
 
     public function contact() {
-        return 0;
+        return view('contact');
     }
 
 }

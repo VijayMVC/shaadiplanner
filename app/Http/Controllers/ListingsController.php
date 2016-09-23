@@ -9,7 +9,6 @@ use App\Http\Requests\StoreListing;
 use App\Listing;
 use App\Favourites;
 use App\ListingCategories;
-use Auth;
 
 class ListingsController extends Controller
 {
@@ -30,6 +29,7 @@ class ListingsController extends Controller
         $listing=Listing::find($id);
         $listing->fill($request->all());
         $listing->save();
+        $listing->addToIndex();
 
         return redirect()->route('portal.edit_listing',[$id])->with('alert-status', 'Listing updated!')->with('alert-class', 'alert-danger');
     }
@@ -43,6 +43,7 @@ class ListingsController extends Controller
         $listing=new Listing();
         $listing->fill($request->all());
         $listing->save();
+        $listing->addToIndex();
         $cats=ListingCategories::all();
         return view('portal.edit_listing')->with('listing',$listing)->with('cats',$cats);
     }
@@ -59,5 +60,11 @@ class ListingsController extends Controller
             $fav->delete();
             return response()->json('deleted');
         }
+    }
+
+    public function search($query) {
+        $listings = Listing::search($query);
+        $cats=ListingCategories::all();
+        return view('archieve_listings')->with('listings',$listings)->with('cats',$cats);
     }
 }
